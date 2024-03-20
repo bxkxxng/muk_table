@@ -1,6 +1,7 @@
 package com.example.muk_able.domain.primary.reservation.model.entity;
 
 import com.example.muk_able.domain.common.BaseEntity;
+import com.example.muk_able.domain.common.enums.StatusType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -34,13 +35,13 @@ public class Reservation extends BaseEntity {
     private String notice;
 
     @Column(name = "STATUS")
-//    @Convert(converter = StatusType.class)
-//    private StatusType status;
-    private String status;
+    @Convert(converter = StatusType.class)
+    private StatusType status;
+//    private String status;
 
     @Builder
-//    public Reservation(Long id, Long customerId, Long restorantId, String notice, StatusType status) {
-    public Reservation(Long id, Long customerId, Long restorantId, String notice, String status) {
+    public Reservation(Long id, Long customerId, Long restorantId, String notice, StatusType status) {
+//    public Reservation(Long id, Long customerId, Long restorantId, String notice, String status) {
         this.id = id;
         this.customerId = customerId;
         this.restorantId = restorantId;

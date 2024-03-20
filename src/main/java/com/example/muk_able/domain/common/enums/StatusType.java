@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
+//@AllArgsConstructor
 public enum StatusType implements CodeValue {
 
     WAIT("00","WAIT"),
@@ -15,4 +15,17 @@ public enum StatusType implements CodeValue {
 
     private final String code;
     private final String value;
+
+    StatusType(String code, String value) {
+        this.code = code;
+        this.value = value;
+    }
+
+   public String getCode() {
+      return code;
+   }
+
+   public String getValue() {
+      return value;
+   }
 }
