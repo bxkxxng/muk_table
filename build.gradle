@@ -1,10 +1,10 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.2.3'
-	id 'io.spring.dependency-management' version '1.1.4'
+	id 'org.springframework.boot' version '3.1.2'
+	id 'io.spring.dependency-management' version '1.1.2'
 }
 
-group = 'com.example.muk_able'
+group = 'com.example.muk_table'
 version = '0.0.1-SNAPSHOT'
 
 java {
@@ -23,17 +23,31 @@ dependencies {
 	//springdoc(swagger)
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
 
+	// JDBC
+	implementation "org.springframework.boot:spring-boot-starter-jdbc:3.1.2"
+
+	// MariaDB
+	implementation 'org.mariadb.jdbc:mariadb-java-client:2.4.1'
+
 	//querydsl
 	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
 	annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta'
 	annotationProcessor 'jakarta.annotation:jakarta.annotation-api:2.1.1'
 	annotationProcessor "jakarta.persistence:jakarta.persistence-api:3.1.0"
 
+	// JPA
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.1.2'
+	implementation 'org.hibernate.orm:hibernate-core:6.2.6.Final'
+
 	//BASE64
 	implementation 'commons-codec:commons-codec:1.10'
 
+	//lombok
+//	compileOnly 'org.projectlombok:lombok'
+	implementation 'org.projectlombok:lombok'
+	annotationProcessor('org.projectlombok:lombok') // 새로 추가
+
 	runtimeOnly 'com.mysql:mysql-connector-j'
-	compileOnly 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 
@@ -43,23 +57,25 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-// QueryDSL 설정법 (3.0 버전)
-// https://velog.io/@daoh98/Query-DSL-Spring-boot-3.0-%EC%9D%B4%EC%83%81-Query-DSL-%EC%84%A4%EC%A0%95-%EB%B0%A9%EB%B2%95
-def generated = "$buildDir/generated/querydsl"
+tasks {
+	processResources {
+		duplicatesStrategy = org.gradle.api.file.DuplicatesStrategy.INCLUDE
+	}
+}
+
+// === ⭐ QueryDsl 빌드 옵션 (선택) ===
+def querydslDir = "$buildDir/generated/querydsl"
+
+sourceSets {
+	main.java.srcDirs += [ querydslDir ]
+}
 
 // querydsl QClass 파일 생성 위치를 지정
 tasks.withType(JavaCompile) {
-	options.getGeneratedSourceOutputDirectory().set(file(generated))
-}
-
-// java source set 에 querydsl QClass 위치 추가
-sourceSets {
-	main.java.srcDirs += [ generated ]
+	options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
 }
 
 // gradle clean 시에 QClass 디렉토리 삭제
-clean {
-	if(file(generated).exists()){
-		delete file(generated)
-	}
+clean.doLast {
+	file(querydslDir).deleteDir()
 }
