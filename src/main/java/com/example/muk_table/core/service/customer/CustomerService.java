@@ -18,7 +18,7 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
 
     public Customer getCustomer(long customerId) {
-        return customerRepository.findById(customerId).orElseThrow(()-> new BusinessException(ResponseCode.CUSTOMER_NOT_FOUND));
+        return customerRepository.findById(customerId).orElseThrow(() -> new BusinessException(ResponseCode.CUSTOMER_NOT_FOUND));
     }
 
 

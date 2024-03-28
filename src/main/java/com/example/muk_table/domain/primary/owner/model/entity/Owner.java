@@ -26,8 +26,8 @@ public class Owner extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "OWNER_ID")
-    private String ownerId;
+    @Column(name = "OWNER_LOGIN_ID")
+    private String ownerLoginId;
 
     @Column(name = "OWNER_PASSWORD")
     private String ownerPassword;
@@ -37,9 +37,9 @@ public class Owner extends BaseEntity {
     private Restaurant restaurant;
 
     @Builder
-    public Owner(Long id, String ownerId, String ownerPassword, Restaurant restaurant) {
+    public Owner(Long id, String ownerLoginId, String ownerPassword, Restaurant restaurant) {
         this.id = id;
-        this.ownerId = ownerId;
+        this.ownerLoginId = ownerLoginId;
         this.ownerPassword = ownerPassword;
         this.restaurant = restaurant;
     }

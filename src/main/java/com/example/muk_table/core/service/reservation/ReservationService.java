@@ -1,5 +1,7 @@
 package com.example.muk_table.core.service.reservation;
 
+import com.example.muk_table.core.common.exception.BusinessException;
+import com.example.muk_table.core.common.response.ResponseCode;
 import com.example.muk_table.core.dto.request.reservation.ReservationRequest;
 import com.example.muk_table.core.service.customer.CustomerService;
 import com.example.muk_table.core.service.restaurant.RestaurantService;
@@ -20,10 +22,20 @@ public class ReservationService {
     private final RestaurantService restaurantService;
     private final ReservationRepository reservationRepository;
 
+    //예약현황 리스트
     public List<Reservation> getReservationList() {
         LocalDate today = LocalDate.now();
-        List<Reservation> reservationList = reservationRepository.findAllReservationList(today);
-        return reservationList;
+        return reservationRepository.findAllReservationListByDate(today);
+    }
+
+    //예약현황 갯수 조회
+    public Long getReservationCount() {
+        return (long) getReservationList().size();
+    }
+
+    //예약정보 조회
+    public Reservation getReservationById(Long reservationId) {
+        return reservationRepository.findById(reservationId).orElseThrow(() -> new BusinessException(ResponseCode.CUSTOMER_NOT_FOUND));
     }
 
     public Long saveReservation(ReservationRequest reservationRequest) {
@@ -38,6 +50,16 @@ public class ReservationService {
                         .status(reservationRequest.getStatus())
                         .build())
                 .getId();
+    }
+
+    public Long updateCustomerStatus(Long reservationId) {
+        Reservation reservation = getReservationById(reservationId);
+        ReservationRequest updateReservation = ReservationRequest.builder()
+                .id(reservation.getId())
+                .status("01")
+                .build();
+
+        return saveReservation(updateReservation);
     }
 
 

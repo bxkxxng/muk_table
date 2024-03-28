@@ -15,12 +15,16 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @EqualsAndHashCode(callSuper = true, of = {"id"})
 @Getter
 @NoArgsConstructor
+@SQLDelete(sql = "UPDATE RESERVATION SET deleted = true WHERE id = ?")
 @Table(name = "RESERVATION")
+@Where(clause = "deleted = false")
 public class Reservation extends BaseEntity {
 
     @Id

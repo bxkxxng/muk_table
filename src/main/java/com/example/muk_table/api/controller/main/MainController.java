@@ -28,8 +28,12 @@ public class MainController {
             description = "현재 대기중인 예약을 조회합니다."
     )
     @GetMapping(value = "/search/reservation")
-    public ResponseEntity<CommonResponse<Object>> getReservationListApi() {
-        //static 데이터
+    /*
+    1. 배치로도 구성 필요 (5~10초 간격이 적당해보임)
+    2. /search/reservation이 활성화 되는 건 새로고침 버튼 눌렀을 때.
+
+     */
+    public ResponseEntity<CommonResponse<Object>> getReservationList() {
         return ResponseEntity.ok().body(new CommonResponse<>(reservationService.getReservationList(), ResponseCode.SUCCESS_SELECT));
     }
 }

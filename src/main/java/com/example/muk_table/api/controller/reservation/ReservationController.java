@@ -21,10 +21,14 @@ public class ReservationController {
 
     @Operation(
             summary = "식당 예약 등록 API",
-            description = "현재 식당 예약을 등록합니다."
+            description = "현재 식당을 대기예약을 등록합니다."
     )
     @PostMapping(value = "/reservation")
-    public ResponseEntity<CommonResponse<Object>> saveReservationApi(@RequestBody ReservationRequest reservationRequest) {
+    /*
+    1. 식당 세션 확인?
+
+     */
+    public ResponseEntity<CommonResponse<Object>> saveReservation(@RequestBody ReservationRequest reservationRequest) {
         return ResponseEntity.ok().body(new CommonResponse<>(reservationService.saveReservation(reservationRequest), ResponseCode.SUCCESS_INSERT));
     }
 }

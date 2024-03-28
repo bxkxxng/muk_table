@@ -18,7 +18,8 @@ public enum ResponseCode {
 
     //404
     RESTAURANT_NOT_FOUND(404,"RESTAURANT-ERR","해당 매장을 찾을 수 없습니다."),
-    CUSTOMER_NOT_FOUND(404,"CUSTOMER-ERR","해당 손님을 찾을 수 없습니다.");
+    CUSTOMER_NOT_FOUND(404,"CUSTOMER-ERR","해당 손님을 찾을 수 없습니다."),
+    RESERVATION_NOT_FOUND(404,"RESERVATION-ERR","해당 예약을 찾을 수 없습니다.");
 
 
     private final int status;

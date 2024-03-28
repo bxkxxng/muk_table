@@ -15,11 +15,18 @@ public class ReservationRepositoryQueryDslImpl implements ReservationRepositoryQ
 
     private final JPAQueryFactory jpaQueryFactory;
 
+    /*
+    WAIT("00","WAIT")
+    CALL("01","CALL")
+    CONFIRM("02","CONFIRM")
+    CANCEL("03","CANCEL")
+    */
     @Override
-    public List<Reservation> findAllReservationList(LocalDate today) {
+    public List<Reservation> findAllReservationListByDate(LocalDate today) {
         return jpaQueryFactory.select(reservation)
                 .from(reservation)
-                .where(reservation.createdAt.goe(today.atStartOfDay()))
+                .where(reservation.createdAt.goe(today.atStartOfDay())
+                        .and(reservation.status.eq("00")))
                 .fetch();
     }
 }

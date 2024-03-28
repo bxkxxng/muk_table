@@ -29,11 +29,11 @@ public class OpenApiConfig {
 //                .in(SecurityScheme.In.HEADER)
 //                .name("Authorization");
 
-        SecurityRequirement securityRequirement = new SecurityRequirement().addList("bearerAuth");
+//        SecurityRequirement securityRequirement = new SecurityRequirement().addList("bearerAuth");
 
         return new OpenAPI()
 //                .components(new Components().addSecuritySchemes("bearerAuth", securityScheme))
-                .security(Arrays.asList(securityRequirement))
+//                .security(Arrays.asList(securityRequirement))
                 .info(info);
     }
 }

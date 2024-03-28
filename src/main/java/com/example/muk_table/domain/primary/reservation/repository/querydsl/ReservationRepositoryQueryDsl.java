@@ -5,5 +5,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ReservationRepositoryQueryDsl {
-    List<Reservation> findAllReservationList(LocalDate today);
+    List<Reservation> findAllReservationListByDate(LocalDate today);
+
 }
