@@ -1,8 +1,8 @@
 #DB
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/MUK_TABLE
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/MUK_TABLE
+    driver-class-name: org.mariadb.jdbc.Driver
     username: root
     password: admin
     hikari:
@@ -37,8 +37,6 @@ spring:
         format_sql: true  # sql query formatting
     generate-ddl: false
     defer-datasource-initialization: true
-    database: mysql
-    database-platform: org.hibernate.dialect.MySQLDialect
 
 #swagger
 springdoc:
@@ -56,6 +54,7 @@ springdoc:
     tags-sorter: alpha
     # Swagger HTML 문서 경로
     path: /web/swagger-ui
+    #http://localhost:8080/web/swagger-ui/index.html
     # swagger-ui default url인 petstore html 문서 비활성화 여부
     disable-swagger-default-url: true
     # json화 된 config파일 대신 파라미터를 이용하여 swagger-ui에 접근하도록 합니다
