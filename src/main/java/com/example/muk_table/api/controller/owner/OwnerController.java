@@ -2,13 +2,16 @@ package com.example.muk_table.api.controller.owner;
 
 import com.example.muk_table.core.common.response.CommonResponse;
 import com.example.muk_table.core.common.response.ResponseCode;
+import com.example.muk_table.core.dto.request.restaurant.RestaurantRequest;
 import com.example.muk_table.core.service.owner.OwnerService;
 import com.example.muk_table.core.service.reservation.ReservationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -35,6 +38,17 @@ public class OwnerController {
     public ResponseEntity<CommonResponse<Object>> saveReservationApi(long reservationId) {
         return ResponseEntity.ok().body(new CommonResponse<>(reservationService.updateCustomerStatus(reservationId), ResponseCode.SUCCESS_UPDATE));
     }
+
+    @Operation(
+            summary = "점주 식당 등록 API",
+            description = "점주가 소유한 식당을 등록 합니다."
+    )
+    @PostMapping(value = "/save/restaurant")
+    public ResponseEntity<CommonResponse<Object>> saveRestaurantApi(long ownerId, @RequestBody RestaurantRequest restaurantRequest) {
+        return ResponseEntity.ok().body(new CommonResponse<>(reservationService.saveRestaurant(ownerId, restaurantRequest), ResponseCode.SUCCESS_UPDATE));
+    }
+
+
 
 
     // (추후) 일자 별 예약 목록 리스트 (점주들 통계확인용도)

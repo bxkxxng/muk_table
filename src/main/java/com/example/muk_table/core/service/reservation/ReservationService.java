@@ -3,6 +3,7 @@ package com.example.muk_table.core.service.reservation;
 import com.example.muk_table.core.common.exception.BusinessException;
 import com.example.muk_table.core.common.response.ResponseCode;
 import com.example.muk_table.core.dto.request.reservation.ReservationRequest;
+import com.example.muk_table.core.dto.request.restaurant.RestaurantRequest;
 import com.example.muk_table.core.service.customer.CustomerService;
 import com.example.muk_table.core.service.restaurant.RestaurantService;
 import com.example.muk_table.domain.primary.customer.model.entity.Customer;
@@ -61,6 +62,4 @@ public class ReservationService {
 
         return saveReservation(updateReservation);
     }
-
-
 }

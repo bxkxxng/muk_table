@@ -25,7 +25,7 @@ public class ReservationController {
     )
     @PostMapping(value = "/reservation")
     /*
-    1. 식당 세션 확인?
+    1. 식당 세션 확인
 
      */
     public ResponseEntity<CommonResponse<Object>> saveReservation(@RequestBody ReservationRequest reservationRequest) {

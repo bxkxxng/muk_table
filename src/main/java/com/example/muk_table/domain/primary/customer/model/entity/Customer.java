@@ -29,10 +29,6 @@ public class Customer extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonBackReference
-    @ManyToOne
-    private Restaurant restaurant;
-
     @Column(name = "PEOPLE_NUMBER")
     private String peopleNumber;
 
@@ -44,9 +40,8 @@ public class Customer extends BaseEntity {
     private List<Reservation> reservationList;
 
     @Builder
-    public Customer(Long id, Restaurant restaurant, String peopleNumber, String phoneNumber) {
+    public Customer(Long id, String peopleNumber, String phoneNumber) {
         this.id = id;
-        this.restaurant = restaurant;
         this.peopleNumber = peopleNumber;
         this.phoneNumber = phoneNumber;
     }

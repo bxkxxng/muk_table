@@ -19,5 +19,4 @@ public class OwnerRequest {
     @Schema(description = "매장 ID", defaultValue = "1 or 2")
     private long restaurantId;
 
-
 }

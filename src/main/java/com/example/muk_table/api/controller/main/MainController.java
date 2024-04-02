@@ -2,12 +2,19 @@ package com.example.muk_table.api.controller.main;
 
 import com.example.muk_table.core.common.response.CommonResponse;
 import com.example.muk_table.core.common.response.ResponseCode;
+import com.example.muk_table.core.dto.request.owner.OwnerRequest;
+import com.example.muk_table.core.dto.request.reservation.ReservationRequest;
+import com.example.muk_table.core.service.owner.OwnerService;
 import com.example.muk_table.core.service.reservation.ReservationService;
+import com.example.muk_table.domain.primary.owner.model.entity.Owner;
+import com.example.muk_table.domain.primary.restaurant.model.entity.Restaurant;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -15,9 +22,19 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Main API", description = "웹 메인 API")
 public class MainController {
 
+    private final OwnerService ownerService;
     private final ReservationService reservationService;
 
     //회원가입
+    @Operation(
+            summary = "점주 등록 API",
+            description = "점주 회원가입 합니다."
+    )
+    @PostMapping(value = "/signup/owner")
+
+    public ResponseEntity<CommonResponse<Object>> saveReservation(@RequestBody Owner owner) {
+        return ResponseEntity.ok().body(new CommonResponse<>(ownerService.saveOwner(owner), ResponseCode.SUCCESS_INSERT));
+    }
 
     //로그인
 
