@@ -5,6 +5,7 @@ import com.example.muk_table.core.common.response.ResponseCode;
 import com.example.muk_table.core.dto.request.restaurant.RestaurantRequest;
 import com.example.muk_table.core.service.owner.OwnerService;
 import com.example.muk_table.core.service.reservation.ReservationService;
+import com.example.muk_table.core.service.restaurant.RestaurantService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ public class OwnerController {
 
     private final OwnerService ownerService;
     private final ReservationService reservationService;
+    private final RestaurantService restaurantService;
 
     @Operation(
             summary = "입장 연락 수동 API",
@@ -35,7 +37,7 @@ public class OwnerController {
     3. owner의 로그인 세션은 얼마나 유지되는지?
     4. owner 세션 화면 -> 다시 게스트 모드로의 전환? device가 두대인가,,,,
     */
-    public ResponseEntity<CommonResponse<Object>> saveReservationApi(long reservationId) {
+    public ResponseEntity<CommonResponse<Object>> saveReservation(long reservationId) {
         return ResponseEntity.ok().body(new CommonResponse<>(reservationService.updateCustomerStatus(reservationId), ResponseCode.SUCCESS_UPDATE));
     }
 
@@ -44,8 +46,8 @@ public class OwnerController {
             description = "점주가 소유한 식당을 등록 합니다."
     )
     @PostMapping(value = "/save/restaurant")
-    public ResponseEntity<CommonResponse<Object>> saveRestaurantApi(long ownerId, @RequestBody RestaurantRequest restaurantRequest) {
-        return ResponseEntity.ok().body(new CommonResponse<>(reservationService.saveRestaurant(ownerId, restaurantRequest), ResponseCode.SUCCESS_UPDATE));
+    public ResponseEntity<CommonResponse<Object>> saveRestaurant(@RequestBody RestaurantRequest restaurantRequest) {
+        return ResponseEntity.ok().body(new CommonResponse<>(restaurantService.saveRestaurant(restaurantRequest), ResponseCode.SUCCESS_INSERT));
     }
 
 

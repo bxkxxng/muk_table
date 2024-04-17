@@ -1,12 +1,17 @@
 package com.example.muk_table.api.config;
 
+import com.example.muk_table.api.security.BaseAccessDeniedHandler;
+import com.example.muk_table.api.security.BaseAuthenticationEntryPoint;
+import com.example.muk_table.api.security.BaseFilter;
 import java.util.Arrays;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -16,15 +21,15 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-//    private final BaseAccessDeniedHandler baseAccessDeniedHandler;
-//    private final BaseAuthenticationEntryPoint baseAuthenticationEntryPoint;
+    private final BaseAccessDeniedHandler baseAccessDeniedHandler;
+    private final BaseAuthenticationEntryPoint baseAuthenticationEntryPoint;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-//                .csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> corsConfigurationSource());     //로컬 확인용 cors 설정. 배포시엔 삭제 처리
-//                .addFilterBefore(new BaseFilter(), UsernamePasswordAuthenticationFilter.class)
+                .csrf(AbstractHttpConfigurer::disable)
+//                .cors(cors -> corsConfigurationSource())     //로컬 확인용 cors 설정. 배포시엔 삭제 처리
+                .addFilterBefore(new BaseFilter(), UsernamePasswordAuthenticationFilter.class)
 //                .authorizeHttpRequests((authz) -> authz
 //                        .requestMatchers(
 //                                new AntPathRequestMatcher("/web/docs")
@@ -34,7 +39,7 @@ public class SecurityConfig {
 //                        ).permitAll()
 //                        .anyRequest().authenticated()
 //                )
-//                .exceptionHandling((exceptionConfig) -> exceptionConfig.authenticationEntryPoint(baseAuthenticationEntryPoint).accessDeniedHandler(baseAccessDeniedHandler));
+                .exceptionHandling((exceptionConfig) -> exceptionConfig.authenticationEntryPoint(baseAuthenticationEntryPoint).accessDeniedHandler(baseAccessDeniedHandler));
         return http.build();
 
     }

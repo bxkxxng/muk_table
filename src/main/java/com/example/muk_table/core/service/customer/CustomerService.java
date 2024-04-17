@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +20,14 @@ public class CustomerService {
 
     public Customer getCustomer(long customerId) {
         return customerRepository.findById(customerId).orElseThrow(() -> new BusinessException(ResponseCode.CUSTOMER_NOT_FOUND));
+    }
+
+    @Transactional
+    public Customer saveCustomer(Long peopleNumber, String phoneNumber, Long RestaurantId) {
+        return customerRepository.save(Customer.builder()
+                        .peopleNumber(peopleNumber)
+                        .phoneNumber(phoneNumber)
+                        .build());
     }
 
 

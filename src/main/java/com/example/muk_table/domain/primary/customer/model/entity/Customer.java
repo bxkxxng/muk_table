@@ -30,7 +30,7 @@ public class Customer extends BaseEntity {
     private Long id;
 
     @Column(name = "PEOPLE_NUMBER")
-    private String peopleNumber;
+    private Long peopleNumber;
 
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
@@ -40,7 +40,7 @@ public class Customer extends BaseEntity {
     private List<Reservation> reservationList;
 
     @Builder
-    public Customer(Long id, String peopleNumber, String phoneNumber) {
+    public Customer(Long id, Long peopleNumber, String phoneNumber) {
         this.id = id;
         this.peopleNumber = peopleNumber;
         this.phoneNumber = phoneNumber;

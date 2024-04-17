@@ -32,8 +32,8 @@ public class MainController {
     )
     @PostMapping(value = "/signup/owner")
 
-    public ResponseEntity<CommonResponse<Object>> saveReservation(@RequestBody Owner owner) {
-        return ResponseEntity.ok().body(new CommonResponse<>(ownerService.saveOwner(owner), ResponseCode.SUCCESS_INSERT));
+    public ResponseEntity<CommonResponse<Object>> saveReservation(@RequestBody OwnerRequest ownerRequest) {
+        return ResponseEntity.ok().body(new CommonResponse<>(ownerService.saveOwner(ownerRequest), ResponseCode.SUCCESS_INSERT));
     }
 
     //로그인

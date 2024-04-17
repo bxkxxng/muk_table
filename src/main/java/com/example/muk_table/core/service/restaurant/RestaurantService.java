@@ -7,6 +7,7 @@ import com.example.muk_table.domain.primary.restaurant.model.entity.Restaurant;
 import com.example.muk_table.domain.primary.restaurant.repository.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,7 +19,9 @@ public class RestaurantService {
         return restaurantRepository.findById(restaurantId).orElseThrow(() -> new BusinessException(ResponseCode.RESTAURANT_NOT_FOUND));
     }
 
+    @Transactional
     public long saveRestaurant(RestaurantRequest restaurantRequest) {
+        //TODO need Owner's restaurantId update.
         return restaurantRepository.save(
                         Restaurant.builder()
                                 .restaurantName(restaurantRequest.getRestaurantName())

@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,9 +40,10 @@ public class ReservationService {
         return reservationRepository.findById(reservationId).orElseThrow(() -> new BusinessException(ResponseCode.CUSTOMER_NOT_FOUND));
     }
 
+    @Transactional
     public Long saveReservation(ReservationRequest reservationRequest) {
 
-        Customer customer = customerService.getCustomer(reservationRequest.getCustomerId());
+        Customer customer = customerService.saveCustomer(reservationRequest.getPeopleNumber(), reservationRequest.getPhoneNumber(), reservationRequest.getRestaurantId());
         Restaurant restaurant = restaurantService.getRestaurant(reservationRequest.getRestaurantId());
 
         return reservationRepository.save(Reservation.builder()
